@@ -3,11 +3,9 @@ const rp = require("request-promise");
 exports.coinMarketCap = async (req, res) => {
   const requestOptions = {
     method: "GET",
-    uri: "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+    uri: "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest",
     qs: {
-      start: "1",
-      limit: "5000",
-      convert: "USD"
+      slug: "ethereum,liquity"
     },
     headers: {
       "X-CMC_PRO_API_KEY": "7b8dae59-91aa-430d-8276-b24a9024d6f4"
@@ -17,10 +15,10 @@ exports.coinMarketCap = async (req, res) => {
   };
 
   try {
-    const res = await rp(requestOptions);
+    const result = await rp(requestOptions);
 
     res.status(200).json({
-      res
+      result
     });
   } catch (err) {
     res.status(err.statusCode || 500).json({
